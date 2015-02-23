@@ -190,5 +190,7 @@ var create = function () {
       }
     }
   }
+
+  return field;
 };
 

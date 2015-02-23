@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script src="./bower_components/knuth-shuffle/index.js"></script>
+    <script src="./src/growingtree.js"></script>
+    <script src="./demo.js"></script>
+  </head>
+  <body>
+    <div>
+      <button type="button" onclick="demo.draw()">Create map</button>
+      <label for="width">Width</label>
+      <input id="width" type="number" min="0" step="1" value="40"/>
+      <label for="height">Height</label>
+      <input id="height" type="number" min="0" step="1" value="20"/>
+      <label for="zoom">Zoom</label>
+      <input id="zoom" type="number" min="0" max="1" step="0.1" value="1" onchange="demo.zoom()"/>
+    </div>
+    <div id="container" class="splash">
+      <canvas id="canvas"></canvas>
+    </div>
+  </body>
+</html>
