@@ -1,0 +1,18 @@
+{
+  "name": "growingtree",
+  "version": "0.0.0",
+  "authors": [
+    "Fritz <fritz@fritzmahnke.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knuth-shuffle": "~1.0.1"
+  }
+}
