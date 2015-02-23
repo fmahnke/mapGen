@@ -1,8 +1,5 @@
 var demo = {};
 
-demo.width = 40;
-demo.height = 20;
-
 demo.tileSize = 32;
 
 demo.tileValues = {
@@ -20,35 +17,20 @@ demo.setupContext = function (context, tileValue) {
   }
 };
 
-demo.clear = function () {
-  var canvas = document.getElementById("canvas");
-  var context = canvas.getContext("2d");
-
-  var widthPx = demo.width * demo.tileSize;
-  var heightPx = demo.height * demo.tileSize;
-
-  canvas.width = widthPx;
-  canvas.height = heightPx;
-
-  context.fillStyle = "ffffff";
-  context.clearRect(0, 0, canvas.width, canvas.height);
-};
-
 demo.zoom = function () {
   demo.draw(demo.activeMap, demo.getZoom());
 };
 
-demo.map = function () {
+demo.map = function (width, height) {
   field = [];
   frontier = [];
 
-  init();
-  create();
+  create(width, height);
 
   return field;
 };
 
-demo.draw = function (map, zoom) {
+demo.draw = function (map, width, height, zoom) {
   console.log('draw() started.');
 
   var tileSize = demo.tileSize * zoom;
@@ -56,8 +38,8 @@ demo.draw = function (map, zoom) {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
 
-  var widthPx = demo.width * demo.tileSize * zoom;
-  var heightPx = demo.height * demo.tileSize * zoom;
+  var widthPx = width * demo.tileSize * zoom;
+  var heightPx = height * demo.tileSize * zoom;
 
   canvas.width = widthPx;
   canvas.height = heightPx;
@@ -102,11 +84,37 @@ demo.draw = function (map, zoom) {
 };
 
 demo.getZoom = function () {
-  var zoomText = document.getElementById('zoom');
-  return parseFloat(zoom.value);
+  return parseFloat(document.getElementById('zoom').value);
+};
+
+demo.getWidth = function () {
+  return parseFloat(document.getElementById('width').value);
+};
+
+demo.getHeight = function () {
+  return parseFloat(document.getElementById('height').value);
+};
+
+demo.createAndDraw = function () {
+  var width = demo.getWidth();
+  var height = demo.getHeight();
+
+  demo.activeMap = demo.map(width, height);
+  demo.draw(demo.activeMap, width, height, demo.getZoom());
 };
 
 window.onload = function () {
-  demo.activeMap = demo.map();
-  demo.draw(demo.activeMap, 1);
+  var createButton = document.getElementById('create');
+  var widthInput = document.getElementById('width');
+  var heightInput = document.getElementById('height');
+  var zoomInput = document.getElementById('zoom');
+
+  createButton.onclick = widthInput.onchange = heightInput.onchange =
+    demo.createAndDraw;
+
+  zoomInput.onchange = function () {
+    demo.draw(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.getZoom());
+  };
+
+  demo.createAndDraw();
 };

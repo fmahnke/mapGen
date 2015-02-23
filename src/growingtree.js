@@ -1,6 +1,3 @@
-var width = 40;
-var height = 20;
-
 var field = [];
 var frontier = [];
 
@@ -18,7 +15,7 @@ var range = function (begin, end) {
   return result;
 };
 
-var carve = function (y, x) {
+var carve = function (y, x, width, height) {
   var extra = [];
 
   field[y][x] = empty;
@@ -52,29 +49,6 @@ var carve = function (y, x) {
   frontier = frontier.concat(shuffledExtra);
 };
 
-var init = function () {
-  for (var h in range(0, height)) {
-    var row = [];
-
-    for (var i in range(0, width)) {
-      row.push(unExUn);
-    }
-    field.push(row);
-  }
-
-  var initX = Math.ceil(Math.random() * width) - 1;
-  var initY = Math.ceil(Math.random() * height) - 1;
-
-  console.log('Chose init point x ' + initX + ' y ' + initY);
-  console.log(frontier);
-  carve(initY, initX);
-  console.log(frontier[0]);
-  console.log(frontier[1]);
-  console.log(frontier[2]);
-  console.log(frontier[3]);
-
-};
-
 var print = function () {
   for (var y in range(0, height)) {
     var s = '';
@@ -90,7 +64,7 @@ var harden = function (y, x) {
   field[y][x] = wall;
 };
 
-var check = function (y, x, nodiagonals) {
+var check = function (y, x, width, height, nodiagonals) {
   var edgestate = 0;
 
   if (x > 0) {
@@ -163,7 +137,33 @@ var check = function (y, x, nodiagonals) {
   }
 };
 
-var create = function () {
+var create = function (width, height) {
+  // TODO: parameter checking
+
+  var init = function () {
+    for (var h in range(0, height)) {
+      var row = [];
+
+      for (var i in range(0, width)) {
+        row.push(unExUn);
+      }
+      field.push(row);
+    }
+
+    var initX = Math.ceil(Math.random() * width) - 1;
+    var initY = Math.ceil(Math.random() * height) - 1;
+
+    console.log('Chose init point x ' + initX + ' y ' + initY);
+    console.log(frontier);
+    carve(initY, initX, width, height);
+    console.log(frontier[0]);
+    console.log(frontier[1]);
+    console.log(frontier[2]);
+    console.log(frontier[3]);
+
+  };
+  init();
+
   var branchrate = 0;
 
   while (frontier.length > 0) {
@@ -173,8 +173,8 @@ var create = function () {
 
     var choice = frontier[Math.floor(pos * frontier.length)];
 
-    if (check(choice[0], choice[1], true)) {
-      carve(choice[0], choice[1]);
+    if (check(choice[0], choice[1], width, height, true)) {
+      carve(choice[0], choice[1], width, height);
     } else {
       harden(choice[0], choice[1]);
     }
