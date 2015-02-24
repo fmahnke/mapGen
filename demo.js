@@ -108,6 +108,7 @@ window.onload = function () {
   var widthInput = document.getElementById('width');
   var heightInput = document.getElementById('height');
   var zoomInput = document.getElementById('zoom');
+  var exportTiledJsonButton = document.getElementById('exportTiledJson');
 
   createButton.onclick = widthInput.onchange = heightInput.onchange =
     demo.createAndDraw;
@@ -116,5 +117,8 @@ window.onload = function () {
     demo.draw(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.getZoom());
   };
 
+  exportTiledJsonButton.onclick = function () {
+    mapExport.tiledJson(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.tileSize);
+  };
   demo.createAndDraw();
 };
