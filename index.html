@@ -1,32 +1,46 @@
 <html>
   <head>
+    <link rel="stylesheet" href="lib/foundation/css/foundation.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script src="lib/foundation/js/vendor/modernizr.js"></script>
     <script src="./bower_components/knuth-shuffle/index.js"></script>
     <script src="./src/growingtree.js"></script>
     <script src="./src/tiledExport.js"></script>
     <script src="./demo.js"></script>
+    <title>Procedural Map Generator</title>
   </head>
   <body>
     <div>
-      <label for="width">Width</label>
-      <input id="width" type="number" min="0" step="1" value="20"/><br/>
-      <label for="height">Height</label>
-      <input id="height" type="number" min="0" step="1" value="20"/><br/>
-      <label for="zoom">Zoom</label>
-      <input id="zoom" type="number" min="0" max="1" step="0.1" value="1"/><br/>
-      <label for="mapVisible">Show map</label>
-      <input id="mapVisible" type="checkbox" checked="true"/><br/>
-      <label for="dataVisible">Show data</label>
-      <input id="dataVisible" type="checkbox" checked="true"/><br/>
-      <button type="button" id="create">Create new map</button>
-      <button type="button" id="exportTiledJson">Export as Tiled JSON</button>
+      <h2>Procedural Map Generator</h2>
     </div>
-    <div id="container" class="splash">
-      <canvas id="canvas"></canvas>
-      <span id="data">
-        <label for="export">Exported data</label>
-        <textarea id="export" cols="80" rows="20"></textarea>
-      </span>
+    <div class="row">
+      <div id="settings" class="large-4 columns">
+        <form>
+              <label for="width">Width</label>
+              <input id="width" type="number" min="0" step="1" value="20"/>
+              <label for="height">Height</label>
+              <input id="height" type="number" min="0" step="1" value="20"/>
+              <label for="zoom">Zoom</label>
+              <input id="zoom" type="number" min="0" max="1" step="0.1" value="1"/>
+              <input id="mapVisible" type="checkbox" checked="true"/>
+              <label for="mapVisible">Show map</label>
+              <input id="dataVisible" type="checkbox" checked="true"/>
+              <label for="dataVisible">Show data</label>
+              <a href="#" class="button tiny" id="create">Create new map</a>
+              <a href="#" class="button tiny" id="exportTiledJson">Export as Tiled JSON</a>
+        </form>
+      </div>
+      <div id="canvascontainer" class="large-8 columns end">
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div id="data" class="large-12 columns">
+          <form>
+            <label for="export">Exported data</label>
+            <textarea id="export" cols="80" rows="20"></textarea>
+          </form>
+      </div>
     </div>
   </body>
 </html>

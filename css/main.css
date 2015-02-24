@@ -1,7 +1,12 @@
+body {
+  font-family: Helvetica;
+}
+
 #canvas {
-  padding: 1em;
+  padding: 1rem;
 }
 
 #export {
   font-family: monospace;
 }
+
