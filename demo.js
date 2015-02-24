@@ -110,6 +110,9 @@ window.onload = function () {
   var zoomInput = document.getElementById('zoom');
   var exportTiledJsonButton = document.getElementById('exportTiledJson');
 
+  var mapVisible = document.getElementById('mapVisible');
+  var dataVisible = document.getElementById('dataVisible');
+
   createButton.onclick = widthInput.onchange = heightInput.onchange =
     demo.createAndDraw;
 
@@ -121,6 +124,22 @@ window.onload = function () {
     var json = mapExport.tiledJson(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.tileSize);
     var textArea = document.getElementById('export');
     textArea.textContent = json;
+  };
+
+  mapVisible.onchange = function () {
+    if (! mapVisible.checked) {
+      document.getElementById('canvas').hidden = true;
+    } else {
+      document.getElementById('canvas').hidden = false;
+    }
+  };
+
+  dataVisible.onchange = function () {
+    if (! dataVisible.checked) {
+      document.getElementById('data').hidden = true;
+    } else {
+      document.getElementById('data').hidden = false;
+    }
   };
   demo.createAndDraw();
 };
