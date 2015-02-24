@@ -10,7 +10,7 @@
     <div>
       <button type="button" id="create">Create map</button>
       <label for="width">Width</label>
-      <input id="width" type="number" min="0" step="1" value="40"/>
+      <input id="width" type="number" min="0" step="1" value="20"/>
       <label for="height">Height</label>
       <input id="height" type="number" min="0" step="1" value="20"/>
       <label for="zoom">Zoom</label>
@@ -19,6 +19,8 @@
     </div>
     <div id="container" class="splash">
       <canvas id="canvas"></canvas>
+      <label for="export">Exported data</label>
+      <textarea id="export" cols="80" rows="30"></textarea>
     </div>
   </body>
 </html>

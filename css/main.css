@@ -1,3 +1,7 @@
 #canvas {
   padding: 1em;
 }
+
+#export {
+  font-family: monospace;
+}

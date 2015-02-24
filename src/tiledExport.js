@@ -65,5 +65,5 @@ mapExport.tiledJson = function (map, width, height, tileSize) {
     width: width
   };
 
-  console.log(JSON.stringify(tiled));
+  return JSON.stringify(tiled, null, 2);
 };

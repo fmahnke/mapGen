@@ -1,6 +1,6 @@
 var demo = {};
 
-demo.tileSize = 32;
+demo.tileSize = 16;
 
 demo.tileValues = {
   empty: 0,
@@ -118,7 +118,9 @@ window.onload = function () {
   };
 
   exportTiledJsonButton.onclick = function () {
-    mapExport.tiledJson(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.tileSize);
+    var json = mapExport.tiledJson(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.tileSize);
+    var textArea = document.getElementById('export');
+    textArea.textContent = json;
   };
   demo.createAndDraw();
 };
