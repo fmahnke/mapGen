@@ -2,6 +2,7 @@
   <head>
     <link rel="stylesheet" href="lib/foundation/css/foundation.css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script src="lib/foundation/js/vendor/jquery.js"></script>
     <script src="lib/foundation/js/vendor/modernizr.js"></script>
     <script src="./bower_components/knuth-shuffle/index.js"></script>
     <script src="./src/util.js"></script>
@@ -9,31 +10,52 @@
     <script src="./src/caves.js"></script>
     <script src="./src/tiledExport.js"></script>
     <script src="./demo.js"></script>
-    <title>Growing Tree Procedural Map Generator</title>
+    <title>Procedural Map Generator</title>
   </head>
   <body>
     <a href="https://github.com/fmahnke/mapGen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     <div>
-      <h3>Growing Tree Procedural Map Generator</h3>
+      <h3>Procedural Map Generator</h3>
     </div>
     <div class="row">
       <div id="settings" class="large-4 columns">
         <form>
-              <label for="width">Width</label>
-              <input id="width" type="number" min="0" step="1" value="20"/>
-              <label for="height">Height</label>
-              <input id="height" type="number" min="0" step="1" value="20"/>
-              <label for="zoom">Zoom</label>
-              <input id="zoom" type="number" min="0" max="1" step="0.1" value="1"/>
-              <label for="branchrate">Branch rate</label>
-              <input id="branchrate" type="number" min="0" step="0.1" value="0"/>
-              <input id="mapVisible" type="checkbox" checked="true"/>
-              <label for="mapVisible">Show map</label>
-              <input id="dataVisible" type="checkbox" checked="true"/>
-              <label for="dataVisible">Show data</label>
-              <a href="#" class="button tiny" id="create">Create new map</a>
-              <a href="#" class="button tiny" id="exportTiledJson">Export as Tiled JSON</a>
+          <label for="width">Width</label>
+          <input id="width" type="number" min="0" step="1" value="20"/>
+          <label for="height">Height</label>
+          <input id="height" type="number" min="0" step="1" value="20"/>
+          <label for="zoom">Zoom</label>
+          <input id="zoom" type="number" min="0" max="1" step="0.1" value="1"/>
+          <input id="mapVisible" type="checkbox" checked="true"/>
+          <label for="mapVisible">Show map</label>
+          <input id="dataVisible" type="checkbox" checked="true"/>
+          <label for="dataVisible">Show data</label>
+          <a href="#" class="button tiny" id="exportTiledJson">Export as Tiled JSON</a>
         </form>
+        <ul class="accordion" data-accordion="accordionGroup">
+          <li class="accordion-navigation">
+            <a href="#panel1a">Maze (Growing Tree algorithm)</a>
+            <div id="panel1a" class="content active">
+              <form>
+                <label for="branchrate">Branch rate</label>
+                <input id="branchrate" type="number" min="0" step="0.1" value="0"/>
+                <a href="#" class="button tiny" id="create">Create new map</a>
+              </form>
+            </div>
+          </li>
+          <li class="accordion-navigation">
+            <a href="#panel2a">Cavern (4-5 Cellular Automata)</a>
+            <div id="panel2a" class="content">
+              <form>
+                <label for="fillrate">Initial wall ratio</label>
+                <input id="fillrate" type="number" min="0" max="1" value="0.5"/>
+                <label for="iterations">Number of iterations</label>
+                <input id="iterations" type="number" min="0" value="5"/>
+                <a href="#" class="button tiny" id="createcavern">Create new map</a>
+              </form>
+            </div>
+          </li>
+        </ul>
       </div>
       <div id="canvascontainer" class="large-8 columns end">
         <canvas id="canvas"></canvas>
@@ -50,5 +72,22 @@
     <div id="footer">
       <p>Released 2015 by Fritz Mahnke.</p>
     </div>
+    <script src="lib/foundation/js/foundation/foundation.js"></script>
+    <script src="lib/foundation/js/foundation/foundation.accordion.js"></script>
+    <script>
+      $(document).foundation({
+        accordion: {
+          // specify the class used for accordion panels
+          content_class: 'content',
+          // specify the class used for active (or open) accordion panels
+          active_class: 'active',
+          // allow multiple accordion panels to be active at the same time
+          multi_expand: false,
+          // allow accordion panels to be closed by clicking on their headers
+          // setting to false only closes accordion panels when another is opened
+          toggleable: true
+        }
+      });
+    </script>
   </body>
 </html>

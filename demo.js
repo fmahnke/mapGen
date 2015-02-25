@@ -21,10 +21,6 @@ demo.zoom = function () {
   demo.draw(demo.activeMap, demo.valueAsNumber('zoom'));
 };
 
-demo.map = function (width, height, branchrate) {
-  return growingtree.create(width, height, branchrate);
-};
-
 demo.draw = function (map, width, height, zoom) {
   console.log('draw() started.');
 
@@ -87,12 +83,24 @@ demo.createAndDraw = function () {
   var branchrate = demo.valueAsNumber('branchrate');
   var zoom = demo.valueAsNumber('zoom');
 
-  demo.activeMap = demo.map(width, height, branchrate);
+  demo.activeMap = growingtree.create(width, height, branchrate);
+  demo.draw(demo.activeMap, width, height, zoom);
+};
+
+demo.createAndDrawCavern = function () {
+  var width = demo.valueAsNumber('width');
+  var height = demo.valueAsNumber('height');
+  var fillRate = demo.valueAsNumber('fillrate');
+  var iterations = demo.valueAsNumber('iterations');
+  var zoom = demo.valueAsNumber('zoom');
+
+  demo.activeMap = caves.create(width, height, fillRate, iterations);
   demo.draw(demo.activeMap, width, height, zoom);
 };
 
 window.onload = function () {
   var createButton = document.getElementById('create');
+  var createCavernButton = document.getElementById('createcavern');
   var widthInput = document.getElementById('width');
   var heightInput = document.getElementById('height');
   var zoomInput = document.getElementById('zoom');
@@ -101,8 +109,8 @@ window.onload = function () {
   var mapVisible = document.getElementById('mapVisible');
   var dataVisible = document.getElementById('dataVisible');
 
-  createButton.onclick = widthInput.onchange = heightInput.onchange =
-    demo.createAndDraw;
+  createButton.onclick = demo.createAndDraw;
+  createCavernButton.onclick = demo.createAndDrawCavern;
 
   zoomInput.onchange = function () {
     demo.draw(demo.activeMap, demo.valueAsNumber('width'), demo.valueAsNumber('height'),
@@ -133,3 +141,4 @@ window.onload = function () {
   };
   demo.createAndDraw();
 };
+
