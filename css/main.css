@@ -10,3 +10,8 @@ body {
   font-family: monospace;
 }
 
+#footer {
+  background-color: #aa0000;
+  color: #ffffff;
+  padding: 20px;
+}
