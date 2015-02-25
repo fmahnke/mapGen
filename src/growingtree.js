@@ -137,7 +137,7 @@ var check = function (y, x, width, height, nodiagonals) {
   }
 };
 
-var create = function (width, height) {
+var create = function (width, height, branchrate) {
   // TODO: parameter checking
 
   var init = function () {
@@ -163,8 +163,6 @@ var create = function (width, height) {
 
   };
   init();
-
-  var branchrate = 0;
 
   while (frontier.length > 0) {
     var pos = Math.random();

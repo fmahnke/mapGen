@@ -18,14 +18,14 @@ demo.setupContext = function (context, tileValue) {
 };
 
 demo.zoom = function () {
-  demo.draw(demo.activeMap, demo.getZoom());
+  demo.draw(demo.activeMap, demo.valueAsNumber('zoom'));
 };
 
-demo.map = function (width, height) {
+demo.map = function (width, height, branchrate) {
   field = [];
   frontier = [];
 
-  create(width, height);
+  create(width, height, branchrate);
 
   return field;
 };
@@ -44,7 +44,7 @@ demo.draw = function (map, width, height, zoom) {
   canvas.width = widthPx;
   canvas.height = heightPx;
 
-   context.fillStyle = "#eeeeee";
+  context.fillStyle = "#eeeeee";
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "#334466";
   context.strokeStyle = "#334466";
@@ -53,7 +53,6 @@ demo.draw = function (map, width, height, zoom) {
   console.log('draw() clear canvas.');
 
   console.log('z ' + zoom);
-  context.fillStyle = "ffffff";
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   var cellY = 0;
@@ -83,24 +82,18 @@ demo.draw = function (map, width, height, zoom) {
   console.log('draw() finished.');
 };
 
-demo.getZoom = function () {
-  return parseFloat(document.getElementById('zoom').value);
-};
-
-demo.getWidth = function () {
-  return parseFloat(document.getElementById('width').value);
-};
-
-demo.getHeight = function () {
-  return parseFloat(document.getElementById('height').value);
+demo.valueAsNumber = function (elementId) {
+  return parseFloat(document.getElementById(elementId).value);
 };
 
 demo.createAndDraw = function () {
-  var width = demo.getWidth();
-  var height = demo.getHeight();
+  var width = demo.valueAsNumber('width');
+  var height = demo.valueAsNumber('height');
+  var branchrate = demo.valueAsNumber('branchrate');
+  var zoom = demo.valueAsNumber('zoom');
 
-  demo.activeMap = demo.map(width, height);
-  demo.draw(demo.activeMap, width, height, demo.getZoom());
+  demo.activeMap = demo.map(width, height, branchrate);
+  demo.draw(demo.activeMap, width, height, zoom);
 };
 
 window.onload = function () {
@@ -117,11 +110,13 @@ window.onload = function () {
     demo.createAndDraw;
 
   zoomInput.onchange = function () {
-    demo.draw(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.getZoom());
+    demo.draw(demo.activeMap, demo.valueAsNumber('width'), demo.valueAsNumber('height'),
+      demo.valueAsNumber('zoom'));
   };
 
   exportTiledJsonButton.onclick = function () {
-    var json = mapExport.tiledJson(demo.activeMap, demo.getWidth(), demo.getHeight(), demo.tileSize);
+    var json = mapExport.tiledJson(demo.activeMap, demo.valueAsNumber('width'),
+      demo.valueAsNumber('height'), demo.tileSize);
     var textArea = document.getElementById('export');
     textArea.textContent = json;
   };
