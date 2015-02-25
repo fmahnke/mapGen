@@ -6,7 +6,9 @@ var empty = '.';
 var exUn = ',';
 var unExUn = '?';
 
-var range = function (begin, end) {
+var growingtree = {};
+
+growingtree.range = function (begin, end) {
   var result = [];
 
   for (var i = begin; i < end; ++i){
@@ -15,7 +17,7 @@ var range = function (begin, end) {
   return result;
 };
 
-var carve = function (y, x, width, height) {
+growingtree.carve = function (y, x, width, height) {
   var extra = [];
 
   field[y][x] = empty;
@@ -49,22 +51,22 @@ var carve = function (y, x, width, height) {
   frontier = frontier.concat(shuffledExtra);
 };
 
-var print = function () {
-  for (var y in range(0, height)) {
+growingtree.print = function () {
+  for (var y in growingtree.range(0, height)) {
     var s = '';
 
-    for (var x in range(0, width)) {
+    for (var x in growingtree.range(0, width)) {
       s += field[y][x];
     }
     console.log(s);
   }
 };
 
-var harden = function (y, x) {
+growingtree.harden = function (y, x) {
   field[y][x] = wall;
 };
 
-var check = function (y, x, width, height, nodiagonals) {
+growingtree.check = function (y, x, width, height, nodiagonals) {
   var edgestate = 0;
 
   if (x > 0) {
@@ -137,14 +139,14 @@ var check = function (y, x, width, height, nodiagonals) {
   }
 };
 
-var create = function (width, height, branchrate) {
+growingtree.create = function (width, height, branchrate) {
   // TODO: parameter checking
 
   var init = function () {
-    for (var h in range(0, height)) {
+    for (var h in growingtree.range(0, height)) {
       var row = [];
 
-      for (var i in range(0, width)) {
+      for (var i in growingtree.range(0, width)) {
         row.push(unExUn);
       }
       field.push(row);
@@ -155,7 +157,7 @@ var create = function (width, height, branchrate) {
 
     console.log('Chose init point x ' + initX + ' y ' + initY);
     console.log(frontier);
-    carve(initY, initX, width, height);
+    growingtree.carve(initY, initX, width, height);
     console.log(frontier[0]);
     console.log(frontier[1]);
     console.log(frontier[2]);
@@ -171,18 +173,18 @@ var create = function (width, height, branchrate) {
 
     var choice = frontier[Math.floor(pos * frontier.length)];
 
-    if (check(choice[0], choice[1], width, height, true)) {
-      carve(choice[0], choice[1], width, height);
+    if (growingtree.check(choice[0], choice[1], width, height, true)) {
+      growingtree.carve(choice[0], choice[1], width, height);
     } else {
-      harden(choice[0], choice[1]);
+      growingtree.harden(choice[0], choice[1]);
     }
     frontier = frontier.filter(function (element) {
       return (element !== choice);
     });
   }
 
-  for (var y in range(0, height)) {
-    for (var x in range(width)) {
+  for (var y in growingtree.range(0, height)) {
+    for (var x in growingtree.range(width)) {
       if (field[y][x] === unExUn) {
         field[y][x] = wall;
       }

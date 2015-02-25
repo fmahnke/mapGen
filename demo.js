@@ -25,7 +25,7 @@ demo.map = function (width, height, branchrate) {
   field = [];
   frontier = [];
 
-  create(width, height, branchrate);
+  growingtree.create(width, height, branchrate);
 
   return field;
 };
