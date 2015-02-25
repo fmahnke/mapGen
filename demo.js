@@ -22,12 +22,7 @@ demo.zoom = function () {
 };
 
 demo.map = function (width, height, branchrate) {
-  field = [];
-  frontier = [];
-
-  growingtree.create(width, height, branchrate);
-
-  return field;
+  return growingtree.create(width, height, branchrate);
 };
 
 demo.draw = function (map, width, height, zoom) {

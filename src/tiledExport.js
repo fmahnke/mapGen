@@ -11,7 +11,7 @@ mapExport.tiledJson = function (map, width, height, tileSize) {
 
       for (var c = 0; c < row.length; ++c) {
 
-        if (row[c] === '.') {
+        if (row[c] === mapGen.legend.empty) {
           newRow.push(0);
         } else {
           newRow.push(1);
