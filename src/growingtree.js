@@ -1,22 +1,4 @@
-var mapGen = {
-  legend: {
-    wall: '#',
-    empty: '.',
-    exposedAndUndetermined: ',',
-    unexposedAndUndetermined: '?'
-  }
-};
-
 var growingtree = {};
-
-growingtree.range = function (begin, end) {
-  var result = [];
-
-  for (var i = begin; i < end; ++i){
-      result.push(i);
-  }
-  return result;
-};
 
 growingtree.carve = function (field, frontier, y, x, width, height) {
   var extra = [];
@@ -55,17 +37,6 @@ growingtree.carve = function (field, frontier, y, x, width, height) {
     field: field,
     frontier: frontier
   };
-};
-
-growingtree.print = function () {
-  for (var y in growingtree.range(0, height)) {
-    var s = '';
-
-    for (var x in growingtree.range(0, width)) {
-      s += field[y][x];
-    }
-    console.log(s);
-  }
 };
 
 growingtree.harden = function (field, y, x) {
@@ -146,10 +117,10 @@ growingtree.check = function (field, y, x, width, height, nodiagonals) {
 };
 
 growingtree.init = function (map, width, height) {
-  for (var h in growingtree.range(0, height)) {
+  for (var h in mapGen.range(0, height)) {
     var row = [];
 
-    for (var i in growingtree.range(0, width)) {
+    for (var i in mapGen.range(0, width)) {
       row.push(mapGen.legend.unexposedAndUndetermined);
     }
     map.field.push(row);
@@ -191,8 +162,8 @@ growingtree.create = function (width, height, branchrate) {
     });
   }
 
-  for (var y in growingtree.range(0, height)) {
-    for (var x in growingtree.range(width)) {
+  for (var y in mapGen.range(0, height)) {
+    for (var x in mapGen.range(width)) {
       if (map.field[y][x] === mapGen.legend.unexposedAndUndetermined) {
         map.field[y][x] = mapGen.legend.wall;
       }
